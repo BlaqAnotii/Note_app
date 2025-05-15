@@ -4,6 +4,8 @@ class Note {
   final String category;
   final DateTime createdAt;
   final DateTime updatedAt;
+    final bool isPinned;  // add this property
+
 
   Note({
     required this.title,
@@ -11,6 +13,8 @@ class Note {
     required this.category,
     required this.createdAt,
     required this.updatedAt,
+        this.isPinned = false,
+
   });
 
   Map<String, dynamic> toJson() => {
@@ -19,6 +23,8 @@ class Note {
         'category': category,
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
+              'isPinned': isPinned,
+
       };
 
   factory Note.fromJson(Map<String, dynamic> json) => Note(
@@ -27,5 +33,7 @@ class Note {
         category: json['category'],
         createdAt: DateTime.parse(json['createdAt']),
         updatedAt: DateTime.parse(json['updatedAt']),
+              isPinned: json['isPinned'] ?? false,
+
       );
 }
