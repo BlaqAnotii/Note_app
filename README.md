@@ -1,4 +1,4 @@
-# flutter_template
+# Note App
 
 A new Flutter project.
 
