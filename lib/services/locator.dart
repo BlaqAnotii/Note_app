@@ -1,8 +1,8 @@
 
-import 'package:flutter_template/controllers/home.vm.dart';
 
-import 'package:flutter_template/services/app_cache.dart';
 import 'package:get_it/get_it.dart';
+import 'package:note_taking_app/controllers/home.vm.dart';
+import 'package:note_taking_app/services/app_cache.dart';
 import '../controllers/base.vm.dart';
 import 'navigation_service.dart';
 

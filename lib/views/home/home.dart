@@ -1,27 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/resources/colors.dart';
-import 'package:flutter_template/services/app_cache.dart';
-import 'package:flutter_template/services/locator.dart';
-import 'package:flutter_template/services/model/note_model.dart';
-import 'package:flutter_template/services/navigation_service.dart';
-import 'package:flutter_template/utils/filter.dart';
-import 'package:flutter_template/utils/snack_message.dart';
-import 'package:flutter_template/utils/widget_extensions.dart';
-import 'package:flutter_template/views/home/note.dart';
-import 'package:flutter_template/views/home/view_note.dart';
+
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:note_taking_app/resources/colors.dart';
+import 'package:note_taking_app/services/model/note_model.dart';
+import 'package:note_taking_app/views/home/note.dart';
+import 'package:note_taking_app/views/home/view_note.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controllers/home.vm.dart';
 
 class HomeScreen extends StatefulWidget {
-    final Note? note;
 
-  const HomeScreen({super.key, this.note});
+  const HomeScreen({super.key, });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -48,16 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String selectedCat = 'All';
   DateTime? selectedDate;
-bool isPinned = false;
 
   @override
   void initState() {
     super.initState();
     loadNotes();
     selectedDate = dates[0];
-         isPinned = widget.note!.isPinned;  // initialize pin state
 
   }
+
+
 Future<void> loadNotes() async {
   final prefs = await SharedPreferences.getInstance();
   final String? notesJson = prefs.getString('notes');
@@ -314,7 +308,7 @@ onEdit: (updatedNote) async {
                     fontWeight: FontWeight.w500,
                     color: AppColors.grey),
                 prefixIcon:
-                    Icon(Iconsax.search_normal_1_outline, color: AppColors.grey),
+                    const Icon(Iconsax.search_normal_1_outline, color: AppColors.grey),
               ),
             ),
           ),
@@ -443,18 +437,16 @@ onEdit: (updatedNote) async {
                   ),
                   IconButton(
             icon: 
-               Icon(Bootstrap.pin_angle_fill , color:  Colors.white, ),
+               const Icon(Bootstrap.pin_angle_fill , color:  Colors.white, ),
               
             onPressed: (){
-              setState(() {
-      isPinned = !isPinned;
-    });
+      
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(isPinned ? 'Note pinned' : 'Note unpinned'),
-        backgroundColor: const Color.fromARGB(255, 52, 59, 58),
-        duration: const Duration(seconds: 2),
+      const SnackBar(
+        content: Text('Note pinned'),
+        backgroundColor: Color.fromARGB(255, 52, 59, 58),
+        duration: Duration(seconds: 2),
       ),
     );
   

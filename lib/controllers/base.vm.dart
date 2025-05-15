@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:flutter_template/services/navigation_service.dart';
+import 'package:note_taking_app/services/navigation_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/app_cache.dart';

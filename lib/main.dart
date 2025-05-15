@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_template/config/config.dart';
-import 'package:flutter_template/resources/images.dart';
-import 'package:flutter_template/resources/theme.dart';
-import 'package:flutter_template/services/app_cache.dart';
-import 'package:flutter_template/views/home/home.dart';
+
+import 'package:note_taking_app/config/config.dart';
+import 'package:note_taking_app/resources/theme.dart';
+import 'package:note_taking_app/services/app_cache.dart';
+import 'package:note_taking_app/views/home/home.dart';
 
 import 'package:oktoast/oktoast.dart';
 
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
             navigatorKey: getIt<NavigationService>().navigatorKey,
             scaffoldMessengerKey: getIt<NavigationService>().snackBarKey,
             debugShowCheckedModeBanner: false,
-            title: "Fuelsmart",
+            title: "Note-Taking App",
             theme: AppThemes.lightTheme,
             darkTheme: AppThemes.darkTheme,
             themeMode: ThemeMode.light,

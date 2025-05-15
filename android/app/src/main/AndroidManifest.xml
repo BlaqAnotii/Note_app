@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="Fuelsmart"
+        android:label="Note-Taking App"
         android:name="${applicationName}"
         android:icon="@mipmap/cngpart">
         <activity

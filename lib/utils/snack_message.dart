@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_template/resources/colors.dart';
-import 'package:flutter_template/utils/widget_extensions.dart';
+import 'package:note_taking_app/resources/colors.dart';
+import 'package:note_taking_app/utils/widget_extensions.dart';
+
 import 'package:oktoast/oktoast.dart';
 
 Widget toast(String message, {ToastType? toastType}) {

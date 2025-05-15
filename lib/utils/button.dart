@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_template/resources/colors.dart';
+import 'package:note_taking_app/resources/colors.dart';
 
 enum ButtonType { fill, outline, text, gradient }
 

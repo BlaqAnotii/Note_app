@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/services/model/note_model.dart';
-import 'package:flutter_template/views/home/note.dart';
+import 'package:share_plus/share_plus.dart';
+
 import 'package:intl/intl.dart';
+import 'package:note_taking_app/services/model/note_model.dart';
+import 'package:note_taking_app/views/home/note.dart';
 
 class NoteViewScreen extends StatelessWidget {
   final Note note;
@@ -15,7 +17,29 @@ class NoteViewScreen extends StatelessWidget {
     required this.onEdit,
   });
 
-  
+  void _exportOrShareNote(BuildContext context) async {
+    // For simplicity, share note content as plain text.
+    // You can extend this to create a PDF file and share it.
+
+    final shareText = '''
+${note.title}
+
+${note.content}
+
+Category: ${note.category}
+Created: ${DateFormat.yMMMd().add_jm().format(note.createdAt)}
+Last Modified: ${DateFormat.yMMMd().add_jm().format(note.updatedAt)}
+''';
+
+    try {
+      await Share.share(shareText, subject: note.title);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error sharing note: $e')),
+      );
+    }
+  }
+
   void _deleteNote(BuildContext context) async {
   final confirm = await showDialog<bool>(context: context,
       builder: (_) => AlertDialog(
@@ -57,6 +81,7 @@ void _editNote(BuildContext context) async {
     Navigator.pop(context); // Close view screen after editing
   }
 }
+
   @override
   Widget build(BuildContext context) {
     final formatter = DateFormat.yMMMd().add_jm();
@@ -65,9 +90,13 @@ void _editNote(BuildContext context) async {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Note Details', style: TextStyle(color: Colors.black)),
         iconTheme: const IconThemeData(color: Colors.black87),
         actions: [
+           IconButton(
+            icon: const Icon(Icons.share_outlined),
+            onPressed: () => _exportOrShareNote(context),
+            tooltip: 'Share Note',
+          ),
           IconButton(
             icon: const Icon(Icons.edit_outlined),
             onPressed: () => _editNote(context),

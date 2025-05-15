@@ -6,8 +6,8 @@ import 'package:event_bus_plus/event_bus_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:note_taking_app/services/locator.dart';
 
-import 'package:flutter_template/services/locator.dart';
 import 'package:provider/provider.dart';
 import '../../utils/widget_extensions.dart';
 import '../controllers/base.vm.dart';

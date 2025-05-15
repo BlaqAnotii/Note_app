@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/services/model/note_model.dart';
-import 'package:flutter_template/views/home/category_list.dart';
+
 import 'package:icons_plus/icons_plus.dart';
+import 'package:note_taking_app/services/model/note_model.dart';
+import 'package:note_taking_app/views/home/category_list.dart';
 
 class NoteEditorScreen extends StatefulWidget {
   final Note? note;
@@ -102,8 +103,7 @@ bool isPinned = false;
       );
     }
   }
-
-  void _applyFormatting(String type) {
+void _applyFormatting(String type) {
     final selection = _contentController.selection;
     final text = _contentController.text;
 
@@ -123,7 +123,19 @@ bool isPinned = false;
         formatted = '~~$selectedText~~';
         break;
       case 'clear':
-        formatted = selectedText.replaceAll(RegExp(r'[*_]+'), '');
+        formatted = selectedText.replaceAll(RegExp(r'[*~_#<>/]+'), '');
+        break;
+      case 'title':
+        formatted = '# $selectedText';
+        break;
+      case 'align_left':
+        formatted = '<div align="left">$selectedText</div>';
+        break;
+      case 'align_center':
+        formatted = '<div align="center">$selectedText</div>';
+        break;
+      case 'align_right':
+        formatted = '<div align="right">$selectedText</div>';
         break;
     }
 
@@ -134,6 +146,7 @@ bool isPinned = false;
       selection: TextSelection.collapsed(offset: selection.start + formatted.length),
     );
   }
+
 
   void _deleteNote() async {
     final shouldDelete = await showDialog<bool>(
@@ -265,6 +278,7 @@ void _discardChanges() async {
                 const SizedBox(height: 12),
                 Expanded(
                   child: TextField(
+                    //toolbarOptions: ToolbarOptions(),
                     controller: _contentController,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
@@ -288,14 +302,47 @@ void _discardChanges() async {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(icon: const Icon(Icons.format_bold), onPressed: () => _applyFormatting('bold')),
-                    IconButton(icon: const Icon(Icons.format_italic), onPressed: () => _applyFormatting('italic')),
-                    IconButton(icon: const Icon(Icons.format_underline), onPressed: () => _applyFormatting('underline')),
-                    IconButton(icon: const Icon(Icons.format_clear), onPressed: () => _applyFormatting('clear')),
-                  ],
+                child: SingleChildScrollView(
+                 scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          icon: const Icon(Icons.format_bold, color: Colors.white),
+                          onPressed: () => _applyFormatting('bold'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.format_italic, color: Colors.white),
+                          onPressed: () => _applyFormatting('italic'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.format_underline, color: Colors.white),
+                          onPressed: () => _applyFormatting('underline'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.title, color: Colors.white),
+                          onPressed: () => _applyFormatting('title'),
+                        ),
+                        const VerticalDivider(color: Colors.white60),
+                        IconButton(
+                          icon: const Icon(Icons.format_align_left, color: Colors.white),
+                          onPressed: () => _applyFormatting('align_left'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.format_align_center, color: Colors.white),
+                          onPressed: () => _applyFormatting('align_center'),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.format_align_right, color: Colors.white),
+                          onPressed: () => _applyFormatting('align_right'),
+                        ),
+                        const VerticalDivider(color: Colors.white60),
+                        IconButton(
+                          icon: const Icon(Icons.format_clear, color: Colors.white),
+                          onPressed: () => _applyFormatting('clear'),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ),
